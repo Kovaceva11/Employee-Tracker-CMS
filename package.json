@@ -1,0 +1,27 @@
+{
+  "name": "employee-tracker-cms",
+  "version": "1.0.0",
+  "description": "This is a Content Management System (CMS) which uses a command-line application to manage a company's employee database. USES: Node.js, Inquirer and MySQL",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kovaceva11/Employee-Tracker-CMS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kovaceva11/Employee-Tracker-CMS/issues"
+  },
+  "homepage": "https://github.com/Kovaceva11/Employee-Tracker-CMS#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3"
+  }
+}
