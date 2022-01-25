@@ -30,4 +30,4 @@ VALUES
     ('James', 'Bond', 3, 3),
     ('John', 'Rambo', 5, NULL),
     ('Wonder', 'Woman', 6, 7),
-    ('Gal', 'Gadot', 7, 6)
+    ('Gal', 'Gadot', 7, 4)
