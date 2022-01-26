@@ -21,7 +21,8 @@ function userPrompt() {
      Inquirer.prompt([{
         type: "list", 
         name: "userSelection", 
-        message: "What would you like to do?", 
+        message: "What would you like to do?",
+        loop: false, 
         choices: [  "View all departments", 
                     "View all roles", 
                     "View all employees", 
@@ -29,8 +30,8 @@ function userPrompt() {
                     "Add a role", 
                     "Add an employee", 
                     "Update an employee's role",                     
-                    "Exit this application"
-                ]
+                    "Exit this application",
+                ]        
     }])
     .then(function({userSelection})  {
         switch (userSelection) {
@@ -74,26 +75,45 @@ function userPrompt() {
                 break;                
             }
         }
-        // console.table(userSelection);
+        
     });
 }
 // Query Functions Below
 // Create function to view all departments
 function viewAllDepartments(){
    console.log('You are now viewing ALL Departments');
-   userPrompt();
+
+   const deptQuery = `SELECT * FROM department`
+   connection.query(deptQuery, function (err,res) {
+       if (err) throw err;
+       console.table(res);
+       console.log("Departments Showing!\n");
+       userPrompt();
+   });
 };
 
 // Create function to view all roles
 function viewAllRoles(){
     console.log('You are now viewing ALL Roles');
-    userPrompt();
+    const deptQuery = `SELECT * FROM role`
+   connection.query(deptQuery, function (err,res) {
+       if (err) throw err;
+       console.table(res);
+       console.log("Roles Showing!\n");
+       userPrompt();
+   });
 };
 
 // Create function to view all employees
 function viewAllEmployees(){
     console.log('You are now viewing ALL Employees');
-    userPrompt();
+    const deptQuery = `SELECT * FROM employee`
+   connection.query(deptQuery, function (err,res) {
+       if (err) throw err;
+       console.table(res);
+       console.log("Employees Showing!\n");
+       userPrompt();
+   });
 };
 
 // Create function to ADD a department
