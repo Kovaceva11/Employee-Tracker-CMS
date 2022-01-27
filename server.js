@@ -1,5 +1,4 @@
 const Inquirer = require("inquirer");
-const { DEC8_BIN } = require("mysql/lib/protocol/constants/charsets");
 const mySQL = require("mysql2");
 
 var connection = mySQL.createConnection({
@@ -119,19 +118,136 @@ function viewAllEmployees(){
 // Create function to ADD a department
 function addDepartment(){
     console.log('You are now ADDING a Department');
-    userPrompt();
+    var deptQuery =
+    `SELECT department.id, department.dept_name
+      FROM department`
+
+  connection.query(deptQuery, function (err, res) {
+    if (err) throw err;
+
+    const deptChoices = res.map(({ id, dept_name }) => ({
+      value: id, Department: `${dept_name}`
+    }));
+
+    // console.table(res);
+    // console.log("Department Inserted!");
+
+    createDepartment(deptChoices);
+  });
 };
+
+function createDepartment() {
+
+    Inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "dept_name",
+          message: "What is the new Department Name?"
+        }, 
+      ])
+      .then(function (answer) {
+        console.log(answer);
+  
+        var deptAddQuery = `INSERT INTO department SET ?`
+        
+        connection.query(deptAddQuery,
+          {
+            dept_name: answer.dept_name,
+          },
+          function (err, res) {
+            if (err) throw err;
+  
+            console.table(res);
+            console.log("Inserted successfully!\n");
+  
+            userPrompt();
+          });
+      });
+  }
+
+//   --------------------------------------------------------------------------------
 
 // Create function to ADD a Role
 function addRole(){
-    console.log('You are now ADDING a Role');
-    userPrompt();
+  console.log('You are now ADDING a Role');
+  Inquirer.prompt([
+    {
+        type: "input", 
+        name: "title", 
+        message: "Enter new Job Title", 
+        // validate:
+    },
+    {
+        type: "input", 
+        name: "salary", 
+        message: "Enter the salary", 
+        // validate:
+    },
+    {
+        type: "input", 
+        name: "department_id", 
+        message: "Enter the ID# of the new Job's Department", 
+        // validate:
+    }       
+])
+.then(({title, salary, department_id}) => {
+    connection.query(`INSERT INTO role (title, salary, department_id) VALUES ('${title}',${salary},${department_id})`);
+    userPrompt;
+})
+  
 };
 
 // Create function to ADD an employee
 function addEmployee(){
     console.log('You are now ADDING an Employee');
-    userPrompt();
+    Inquirer.prompt([
+      {
+          type: "input", 
+          name: "first_name", 
+          message: "Enter the new employee's first name", 
+          // validate:
+      },
+      {
+          type: "input", 
+          name: "last_name", 
+          message: "Enter the new employee's last name", 
+          // validate:
+      },
+      {
+          type: "input", 
+          name: "role_id", 
+          message: "Enter the new employee's Role ID Number (1-6) ", 
+          // validate:
+      },       
+      {
+        type: "input", 
+        name: "manager_id", 
+        message: "Enter the new employee's Manager ID Number (1-9) ", 
+        // validate:
+    }    
+  ])
+  .then(function (answer) {
+    console.log(answer);
+
+    var query = `INSERT INTO employee SET ?`
+    // when finished prompting, insert a new item into the db with that info
+    connection.query(query,
+      {
+        first_name: answer.first_name,
+        last_name: answer.last_name,
+        role_id: answer.role_id,
+        manager_id: answer.manager_id,
+      },
+      function (err, res) {
+        if (err) throw err;
+
+        console.table(res);
+        console.log("New Employee Added!\n");
+
+        userPrompt();
+      });
+  })
 };
 
 // Create function to update Employee Role
@@ -139,3 +255,4 @@ function updateEmployeeRole(){
     console.log('You are now UPDATING an Employee');
     userPrompt();
 };
+

@@ -12,7 +12,7 @@ VALUES
     ('Sales Manager', 80000, 1),
     ('Engineering Manager', 100000, 2),
     ('Account Manager', 70000, 3),
-    ('Chief Operating Officer', 250000, 6),
+    ('Chief Executive Officer', 250000, 6),
     ('Finance Manager', 105000, 3),
     ('Accountant', 85000, 3),
     ('Legal Aide', 50000, 4),
