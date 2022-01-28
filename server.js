@@ -111,7 +111,7 @@ function viewAllDepartments() {
 // Create function to view all roles
 function viewAllRoles() {
   console.log("You are now viewing ALL Roles");
-  const roleQuery = `SELECT * FROM role`;
+  const roleQuery = `SELECT role.id, role.title, role.salary, department.dept_name AS department FROM role INNER JOIN department ON department.id = role.department_id`;
   connection.query(roleQuery, function (err, res) {
     if (err) throw err;
     console.table(res);
@@ -123,7 +123,7 @@ function viewAllRoles() {
 // Create function to view all employees
 function viewAllEmployees() {
   console.log("You are now viewing ALL Employees");
-  const employeeQuery = `SELECT * FROM employee`;
+  const employeeQuery = `SELECT employee.first_name, employee.last_name, role.title, role.salary, department.dept_name AS department, employee.manager_id FROM employee JOIN role ON role.id = employee.role_id JOIN department ON role.department_id = department.id ORDER BY employee.id`;
   connection.query(employeeQuery, function (err, res) {
     if (err) throw err;
     console.table(res);
