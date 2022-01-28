@@ -2,7 +2,7 @@ const Inquirer = require("inquirer");
 const mySQL = require("mysql2");
 const CFonts = require('cfonts');
 
-CFonts.say('Employee Tracker!', {
+CFonts.say('Employee Tracker', {
 	font: 'block',              // define the font face
 	align: 'left',              // define text alignment
 	colors: ['white'],         // define all colors
@@ -111,8 +111,8 @@ function viewAllDepartments() {
 // Create function to view all roles
 function viewAllRoles() {
   console.log("You are now viewing ALL Roles");
-  const deptQuery = `SELECT role.id, role.title, role.salary, department.dept_name AS department FROM role INNER JOIN department ON department.id = role.department_id`;
-  connection.query(deptQuery, function (err, res) {
+  const roleQuery = `SELECT * FROM role`;
+  connection.query(roleQuery, function (err, res) {
     if (err) throw err;
     console.table(res);
     console.log("Roles Showing!\n");
@@ -123,7 +123,7 @@ function viewAllRoles() {
 // Create function to view all employees
 function viewAllEmployees() {
   console.log("You are now viewing ALL Employees");
-  const employeeQuery = `SELECT employee.first_name, employee.last_name, role.title, role.salary, department.dept_name AS department, employee.manager_id FROM employee JOIN role ON role.id = employee.role_id JOIN department ON role.department_id = department.id ORDER BY employee.id`;
+  const employeeQuery = `SELECT * FROM employee`;
   connection.query(employeeQuery, function (err, res) {
     if (err) throw err;
     console.table(res);
@@ -135,8 +135,7 @@ function viewAllEmployees() {
 // Create function to ADD a department
 function addDepartment() {
   console.log("You are now ADDING a Department");
-  var deptQuery = `SELECT department.id, department.dept_name
-      FROM department`;
+  var deptQuery = `SELECT * FROM department`;
 
   connection.query(deptQuery, function (err, res) {
     if (err) throw err;
