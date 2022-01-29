@@ -36,10 +36,7 @@
    ## Badges  
   ![Your Repository's Stats](https://github-readme-stats.vercel.app/api?username=Kovaceva11&show_icons=true)  
   ![Your Repository's Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=Kovaceva11&theme=blue-green)        
-  ## Contribute  
-  N/A  
-  ## Tests  
-  N/A  
+  
   ## Questions?  
   [Contact Me via Email Here](mailto:adam.kovacevich.develop@gmail.com)   
       
