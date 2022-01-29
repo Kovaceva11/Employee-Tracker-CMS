@@ -28,7 +28,11 @@
   ![Screenshot 1](./assets/app_screenshot.png)  
   ![Screenshot 2](./assets/app_screen2.png) 
   ## Credits  
-  N/A 
+  Node.js  https://nodejs.org/en/  
+  Inquirer https://www.npmjs.com/package/inquirer  
+  mySQL https://www.mysql.com/  
+  mysql2 https://www.npmjs.com/package/mysql2    
+  Dotenv https://www.npmjs.com/package/dotenv 
    ## Badges  
   ![Your Repository's Stats](https://github-readme-stats.vercel.app/api?username=Kovaceva11&show_icons=true)  
   ![Your Repository's Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=Kovaceva11&theme=blue-green)        
