@@ -31,7 +31,8 @@
   Node.js  https://nodejs.org/en/  
   Inquirer https://www.npmjs.com/package/inquirer  
   mySQL https://www.mysql.com/  
-  mysql2 https://www.npmjs.com/package/mysql2    
+  mysql2 https://www.npmjs.com/package/mysql2  
+  Conole.Table Package https://www.npmjs.com/package/console.table  
   Dotenv https://www.npmjs.com/package/dotenv 
    ## Badges  
   ![Your Repository's Stats](https://github-readme-stats.vercel.app/api?username=Kovaceva11&show_icons=true)  
