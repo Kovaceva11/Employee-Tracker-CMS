@@ -21,7 +21,7 @@ var connection = mySQL.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "employeesDB",
+  database: "employee_db",
 });
 
 // connect to the mysql server and sql database
