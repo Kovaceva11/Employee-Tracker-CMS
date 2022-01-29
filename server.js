@@ -1,5 +1,6 @@
 const Inquirer = require("inquirer");
 const mySQL = require("mysql2");
+require('dotenv').config();
 const CFonts = require('cfonts');
 
 CFonts.say('Employee Tracker', {
@@ -19,9 +20,9 @@ CFonts.say('Employee Tracker', {
 
 var connection = mySQL.createConnection({
   host: "localhost",
-  user: "root",
-  password: "",
-  database: "employee_db",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 // connect to the mysql server and sql database
@@ -220,25 +221,59 @@ function addEmployee() {
       type: "input",
       name: "first_name",
       message: "Enter the new employee's first name",
-      // validate:
+      validate: first_name => {
+        if(first_name) {
+            return true;
+        } else {
+            console.log("Must enter First Name")
+            return false;
+        }
+    }
     },
     {
       type: "input",
       name: "last_name",
       message: "Enter the new employee's last name",
-      // validate:
+      validate: last_name => {
+        if(last_name) {
+            return true;
+        } else {
+            console.log("Must enter Last Name")
+            return false;
+        }
+    }
     },
     {
       type: "input",
       name: "role_id",
       message: "Enter the new employee's Role ID Number (1-6) ",
-      // validate:
+      validate: role_id => {
+        if (isNaN(role_id)) {
+            console.log("Please enter a number for the Role's ID!")
+            return false;
+        } else if (!role_id) {
+            console.log("Please enter a number for the Role's ID!")
+            return false;
+        } else {
+            return true;
+        }
+    }
     },
     {
       type: "input",
       name: "manager_id",
       message: "Enter the new employee's Manager ID Number (1-9) ",
-      // validate:
+      validate: manager_id => {
+        if (isNaN(manager_id)) {
+            console.log("Please enter a number between 1-9 for the Manager's ID!")
+            return false;
+        } else if (!manager_id) {
+            console.log("Please enter a number between 1-9 for the Manager's ID!")
+            return false;
+        } else {
+            return true;
+        }
+    }
     },
   ]).then(({ first_name, last_name, role_id, manager_id }) => {
     const employeeQuery = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${first_name}','${last_name}','${role_id}', '${manager_id}')`;
@@ -328,5 +363,4 @@ function promptUpdateEmployee(employeeList, roleList) {
         userPrompt();
       }
     );    
-  });
-}
+  });}

@@ -21,6 +21,7 @@
   "dependencies": {
     "cfonts": "^2.10.0",
     "console.table": "^0.10.0",
+    "dotenv": "^14.3.2",
     "inquirer": "^8.2.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3"
