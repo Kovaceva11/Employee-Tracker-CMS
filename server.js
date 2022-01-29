@@ -1,21 +1,21 @@
 const Inquirer = require("inquirer");
 const mySQL = require("mysql2");
-require('dotenv').config();
-const CFonts = require('cfonts');
+require("dotenv").config();
+const CFonts = require("cfonts");
 
-CFonts.say('Employee Tracker', {
-	font: 'block',              // define the font face
-	align: 'left',              // define text alignment
-	colors: ['white'],         // define all colors
-	background: 'transparent',  // define the background color, you can also use `backgroundColor` here as key
-	letterSpacing: 1,           // define letter spacing
-	lineHeight: 1,              // define the line height
-	space: true,                // define if the output text should have empty lines on top and on the bottom
-	maxLength: '0',             // define how many character can be on one line
-	gradient: ['cyan', 'green'],            // define your two gradient colors
-	independentGradient: true, // define if you want to recalculate the gradient for each new line
-	transitionGradient: true,  // define if this is a transition between colors directly
-	env: 'node'                 // define the environment CFonts is being executed in
+CFonts.say("Employee Tracker", {
+  font: "block", // define the font face
+  align: "left", // define text alignment
+  colors: ["white"], // define all colors
+  background: "transparent", // define the background color, you can also use `backgroundColor` here as key
+  letterSpacing: 1, // define letter spacing
+  lineHeight: 1, // define the line height
+  space: true, // define if the output text should have empty lines on top and on the bottom
+  maxLength: "0", // define how many character can be on one line
+  gradient: ["cyan", "green"], // define your two gradient colors
+  independentGradient: true, // define if you want to recalculate the gradient for each new line
+  transitionGradient: true, // define if this is a transition between colors directly
+  env: "node", // define the environment CFonts is being executed in
 });
 
 var connection = mySQL.createConnection({
@@ -186,19 +186,46 @@ function addRole() {
       type: "input",
       name: "title",
       message: "Enter new Job Title",
-      // validate:
+      validate: (title) => {
+        if (title) {
+          return true;
+        } else {
+          console.log("Must enter a Title");
+          return false;
+        }
+      },
     },
     {
       type: "input",
       name: "salary",
       message: "Enter the salary",
-      // validate:
+      validate: (salary) => {
+        if (isNaN(salary)) {
+          console.log("Please enter a number for the salary");
+          return false;
+        } else if (!salary) {
+          console.log("Please enter a number for the salary");
+          return false;
+        } else {
+          return true;
+        }
+      },
     },
     {
       type: "input",
       name: "department_id",
-      message: "Enter the ID# of the new Job's Department",
-      // validate:
+      message: "Enter the ID# (1-4) of the new Job's Department",
+      validate: (department_id) => {
+        if (isNaN(department_id)) {
+          console.log("Please enter a number between (1-4) for the Role's ID!");
+          return false;
+        } else if (!department_id) {
+          console.log("Please enter a number between (1-4) for the Role's ID!");
+          return false;
+        } else {
+          return true;
+        }
+      },
     },
   ]).then(({ title, salary, department_id }) => {
     const roleQuery = `INSERT INTO role (title, salary, department_id) VALUES ('${title}',${salary},${department_id})`;
@@ -221,59 +248,63 @@ function addEmployee() {
       type: "input",
       name: "first_name",
       message: "Enter the new employee's first name",
-      validate: first_name => {
-        if(first_name) {
-            return true;
+      validate: (first_name) => {
+        if (first_name) {
+          return true;
         } else {
-            console.log("Must enter First Name")
-            return false;
+          console.log("Must enter First Name");
+          return false;
         }
-    }
+      },
     },
     {
       type: "input",
       name: "last_name",
       message: "Enter the new employee's last name",
-      validate: last_name => {
-        if(last_name) {
-            return true;
+      validate: (last_name) => {
+        if (last_name) {
+          return true;
         } else {
-            console.log("Must enter Last Name")
-            return false;
+          console.log("Must enter Last Name");
+          return false;
         }
-    }
+      },
     },
     {
       type: "input",
       name: "role_id",
       message: "Enter the new employee's Role ID Number (1-6) ",
-      validate: role_id => {
+      validate: (role_id) => {
         if (isNaN(role_id)) {
-            console.log("Please enter a number for the Role's ID!")
-            return false;
+          console.log("Please enter a number between (1-6) for the Role's ID!");
+          return false;
         } else if (!role_id) {
-            console.log("Please enter a number for the Role's ID!")
-            return false;
+          console.log("Please enter a number between (1-6) for the Role's ID!");
+          return false;
         } else {
-            return true;
+          return true;
         }
-    }
+      },
     },
     {
       type: "input",
       name: "manager_id",
       message: "Enter the new employee's Manager ID Number (1-9) ",
-      validate: manager_id => {
+      validate: (manager_id) => {
         if (isNaN(manager_id)) {
-            console.log("Please enter a number between 1-9 for the Manager's ID!")
-            return false;
+          console.log(
+            "Please enter a number between 1-9 for the Manager's ID!"
+          );
+          return false;
         } else if (!manager_id) {
-            console.log("Please enter a number between 1-9 for the Manager's ID!")
-            return false;
+          console.log(
+            "Please enter a number between 1-9 for the Manager's ID!"
+          );
+          return false;
         } else {
-            return true;
+          return true;
         }
-    }
+      },
     },
   ]).then(({ first_name, last_name, role_id, manager_id }) => {
     const employeeQuery = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${first_name}','${last_name}','${role_id}', '${manager_id}')`;
@@ -307,7 +338,7 @@ function selectEmployees() {
     }));
 
     console.table(res);
-    console.log("selectEmployees To Update!\n");
+    console.log("select Employees To Update!\n");
 
     selectRole(employeeList);
   });
@@ -329,7 +360,7 @@ function selectRole(employeeList) {
     }));
 
     console.table(res);
-    console.log("selectRole to Update!\n");
+    console.log("select Role to Update!\n");
 
     promptUpdateEmployee(employeeList, roleList);
   });
@@ -350,7 +381,7 @@ function promptUpdateEmployee(employeeList, roleList) {
       choices: roleList,
     },
   ]).then(function (answer) {
-    var employeeRoleQuery = `UPDATE employee SET role_id = ? WHERE id = ?`;    
+    var employeeRoleQuery = `UPDATE employee SET role_id = ? WHERE id = ?`;
     connection.query(
       employeeRoleQuery,
       [answer.role_id, answer.employee_id],
@@ -362,5 +393,6 @@ function promptUpdateEmployee(employeeList, roleList) {
 
         userPrompt();
       }
-    );    
-  });}
+    );
+  });
+}
