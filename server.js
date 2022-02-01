@@ -371,13 +371,13 @@ function promptUpdateEmployee(employeeList, roleList) {
     {
       type: "list",
       name: "employee_id",
-      message: "Which employee do you want to set with the role?",
+      message: "Please select the Employee you would like to change Roles",
       choices: employeeList,
     },
     {
       type: "list",
       name: "role_id",
-      message: "Which role do you want to update?",
+      message: "Add the Role ID number",
       choices: roleList,
     },
   ]).then(function (answer) {
