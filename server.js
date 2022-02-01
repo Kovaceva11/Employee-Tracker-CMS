@@ -377,7 +377,7 @@ function promptUpdateEmployee(employeeList, roleList) {
     {
       type: "list",
       name: "role_id",
-      message: "Add the Role ID number",
+      message: "Please enter a number between (1-6) for the Role's ID",
       choices: roleList,
     },
   ]).then(function (answer) {
