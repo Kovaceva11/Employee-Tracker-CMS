@@ -228,7 +228,7 @@ function addRole() {
       },
     },
   ]).then(({ title, salary, department_id }) => {
-    const roleQuery = `INSERT INTO role (title, salary, department_id) VALUES ('${title},${salary},${department_id})`;
+    const roleQuery = `INSERT INTO role (title, salary, department_id) VALUES ('${title}','${salary}','${department_id}')`;
     connection.query(roleQuery, function (err, res) {
       if (err) throw err;
 
